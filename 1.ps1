@@ -19,7 +19,7 @@ function Get-SteamLibrary {
 Get-SteamLibrary -SteamPath "_Steam" -SteamLibrary "_SteamLibrary"
 if (!(Test-Path variable:_SteamLibrary)) {$_SteamLibrary = "$_Steam"}
 [Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
-(New-Object System.Net.WebClient).DownloadFile($url,$fldr)
+(New-Object System.Net.WebClient).DownloadFile("$url","$fldr")
 Add-Type -AssemblyName PresentationCore,PresentationFramework
 [System.Windows.MessageBox]::Show("Слава Україні!") > $null
 exit
