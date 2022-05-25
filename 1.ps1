@@ -1,6 +1,4 @@
 # set-executionpolicy bypass -scope process -force
-$fldr = "$_SteamLibrary\steamapps\common\Left 4 Dead 2\left4dead2\addons\tro-mod.vpk"
-$url = "https://github.com/wvzxn/l4d2-tro-mod/raw/main/tro-mod.vpk"
 function Get-SteamLibrary {
   param ([string]$SteamPath,[string]$SteamLibrary)
   $e = 'Write-Output "Steam folder not found..." ; Start-Sleep -s 3 ; return 1'
@@ -19,7 +17,7 @@ function Get-SteamLibrary {
 Get-SteamLibrary -SteamPath "_Steam" -SteamLibrary "_SteamLibrary"
 if (!(Test-Path variable:_SteamLibrary)) {$_SteamLibrary = "$_Steam"}
 [Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
-(New-Object System.Net.WebClient).DownloadFile("$url","$fldr")
+(New-Object System.Net.WebClient).DownloadFile("https://github.com/wvzxn/l4d2-tro-mod/raw/main/tro-mod.vpk","$_SteamLibrary\steamapps\common\Left 4 Dead 2\left4dead2\addons\tro-mod.vpk")
 Add-Type -AssemblyName PresentationCore,PresentationFramework
 [System.Windows.MessageBox]::Show("Слава Україні!") > $null
 exit
