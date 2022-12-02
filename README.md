@@ -6,7 +6,7 @@ Left 4 Dead 2 sound mod.
 
 - `Win` + `R`
 - Type `powershell`
-- Paste the code below
+- Paste the code below and press `Enter`
 ```
 set-executionPolicy bypass -scope process -force
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
