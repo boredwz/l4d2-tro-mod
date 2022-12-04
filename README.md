@@ -12,3 +12,7 @@ set-executionPolicy bypass -scope process -force
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 iwr -useb 'https://raw.githubusercontent.com/wvzxn/l4d2-tro-mod/main/setup.ps1'|iex
 ```
+
+### OR
+
+- Download and run [l4d2-tro-mod-setup.cmd](https://github.com/wvzxn/l4d2-tro-mod/releases/latest/download/l4d2-tro-mod-setup.cmd)
