@@ -3,13 +3,32 @@
 #  Description: Left 4 Dead 2 sound mod.
 #               The script acts as both installer and updater.
 
-function get-steamLibs {
-  $i = (gp "HKLM:\SOFTWARE\WOW6432Node\Valve\Steam").installPath
-  return gc "$i\steamapps\libraryfolders.vdf"|?{$_ -match '"path"'}|%{$_ -replace '(.*"path".*")(.*)(".*)','$2'}|%{$_ -replace '\\\\','\'}
+#Requires -Version 5
+
+#   Steam test
+if (Test-Path "HKLM:\SOFTWARE\WOW6432Node\Valve\Steam") {
+  $steamPath = (gp "HKLM:\SOFTWARE\WOW6432Node\Valve\Steam").installPath;
+} else {
+  if (Test-Path "${env:ProgramFiles(x86)}\Steam") {
+    $steamPath = "${env:ProgramFiles(x86)}\Steam"
+  } else {Write-Error "Steam path is not found"; return}
 }
 
-get-steamLibs|%{if(test-path "$_\steamapps\common\Left 4 Dead 2"){$l4d2="$_\steamapps\common\Left 4 Dead 2"}}
-iwr "https://github.com/wvzxn/l4d2-tro-mod/releases/latest/download/tro-mod.vpk" -outFile "$l4d2\left4dead2\addons\tro-mod.vpk"
+Write-Host "#   Get Steam Libraries"
+#   Get Steam Libraries
+$steamLibs = gc "$steamPath\steamapps\libraryfolders.vdf"|?{$_ -match '"path"'}|%{
+  ($_ -replace '^.*\"([^\"]+?)\"$','$1') -replace '\\\\','\'
+}
+
+Write-Host "#   Copy mod.vpk"
+#   Copy mod.vpk
+$steamLibs|%{
+  if(test-path "$_\steamapps\common\Left 4 Dead 2") {
+    copy "$env:USERPROFILE\Desktop\TPO EHEu IIpocuTb CaJIa (by wvzxn).vpk" -dest "$_\steamapps\common\Left 4 Dead 2\left4dead2\addons"
+  }
+}
+
+#   End
 echo "Done!"
 Write-Host -NoNewline "Press any key to continue...";[void][System.Console]::ReadKey($true);Write-Host
 exit
