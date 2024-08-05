@@ -4,8 +4,6 @@ Left 4 Dead 2 mod.
 
 ## How to install (or update)
 
-**0. Place `TPO EHEu IIpocuTb CaJIa (by wvzxn).vpk` on the Desktop**
-
 **1. Press `Win` + `R`**
 
 **2. Run `powershell`**
