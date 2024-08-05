@@ -19,13 +19,11 @@ if (Test-Path "HKLM:\SOFTWARE\WOW6432Node\Valve\Steam") {
   } else {Write-Error "Steam path is not found"; return}
 }
 
-Write-Host "#   Get Steam Libraries"
 #   Get Steam Libraries
 $steamLibs = gc "$steamPath\steamapps\libraryfolders.vdf"|?{$_ -match '"path"'}|%{
   ($_ -replace '^.*\"([^\"]+?)\"$','$1') -replace '\\\\','\'
 }
 
-Write-Host "#   Copy mod.vpk"
 #   Copy mod.vpk
 $steamLibs|%{
   if(test-path "$_\steamapps\common\Left 4 Dead 2") {
@@ -35,5 +33,4 @@ $steamLibs|%{
 
 #   End
 echo "Done!"
-Write-Host -NoNewline "Press any key to continue...";[void][System.Console]::ReadKey($true);Write-Host
-exit
+return
