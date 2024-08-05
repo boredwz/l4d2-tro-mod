@@ -5,6 +5,11 @@
 
 #Requires -Version 5
 
+if (!(Test-Path "$env:USERPROFILE\Desktop\TPO EHEu IIpocuTb CaJIa (by wvzxn).vpk")) {
+  Write-Host "TPO EHEu IIpocuTb CaJIa (by wvzxn).vpk not found"
+  return
+}
+
 #   Steam test
 if (Test-Path "HKLM:\SOFTWARE\WOW6432Node\Valve\Steam") {
   $steamPath = (gp "HKLM:\SOFTWARE\WOW6432Node\Valve\Steam").installPath;
