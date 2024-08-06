@@ -36,8 +36,8 @@ $steamLibs|%{
     copy "$env:USERPROFILE\Desktop\$filename" -dest "$_\steamapps\common\Left 4 Dead 2\left4dead2\addons"
     del "$env:USERPROFILE\Desktop\$filename"
     Write-Host "Done."
-  } else {
-    Write-Host "Error."
+    return
   }
 }
+Write-Host "Error."
 return
