@@ -31,13 +31,11 @@ Get-GithubLatestRelease "wvzxn/l4d2-tro-mod" -dl -out "$env:USERPROFILE\Desktop"
 $steamLibs|%{
   if (Test-path "$_\steamapps\common\Left 4 Dead 2") {
     if (Test-Path "$_\steamapps\common\Left 4 Dead 2\left4dead2\addons\$filename") {
-      del "$_\steamapps\common\Left 4 Dead 2\left4dead2\addons\$filename" -Force
+      del "$_\steamapps\common\Left 4 Dead 2\left4dead2\addons\$filename" -for
     }
     copy "$env:USERPROFILE\Desktop\$filename" -dest "$_\steamapps\common\Left 4 Dead 2\left4dead2\addons"
     del "$env:USERPROFILE\Desktop\$filename"
     Write-Host "Done."
-    return
   }
 }
-Write-Host "Error."
 return
