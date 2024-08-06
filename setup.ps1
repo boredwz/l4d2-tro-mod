@@ -5,11 +5,6 @@
 
 #Requires -Version 5
 
-if (!(Test-Path "$env:USERPROFILE\Desktop\TPO EHEu IIpocuTb CaJIa (by wvzxn).vpk")) {
-  Write-Host "TPO EHEu IIpocuTb CaJIa (by wvzxn).vpk not found"
-  return
-}
-
 #   Steam test
 if (Test-Path "HKLM:\SOFTWARE\WOW6432Node\Valve\Steam") {
   $steamPath = (gp "HKLM:\SOFTWARE\WOW6432Node\Valve\Steam").installPath;
@@ -24,13 +19,25 @@ $steamLibs = gc "$steamPath\steamapps\libraryfolders.vdf"|?{$_ -match '"path"'}|
   ($_ -replace '^.*\"([^\"]+?)\"$','$1') -replace '\\\\','\'
 }
 
+#   Download mod.vpk
+iwr -useb "https://gist.githubusercontent.com/wvzxn/e7872773f4c44671ca37fad7ca3912b7/raw/Get-GithubLatestRelease.ps1"|iex
+$url = Get-GithubLatestRelease "wvzxn/l4d2-tro-mod"
+$filename = Get-GithubLatestRelease "wvzxn/l4d2-tro-mod" -getname
+$size = [int64]((iwr -Uri $url -Method Head).Headers.'Content-Length') / 1MB
+Write-Host ("Downloading... [~{0:N0}MB]" -f $size)
+Get-GithubLatestRelease "wvzxn/l4d2-tro-mod" -dl -out "$env:USERPROFILE\Desktop"
+
 #   Copy mod.vpk
 $steamLibs|%{
-  if(test-path "$_\steamapps\common\Left 4 Dead 2") {
-    copy "$env:USERPROFILE\Desktop\TPO EHEu IIpocuTb CaJIa (by wvzxn).vpk" -dest "$_\steamapps\common\Left 4 Dead 2\left4dead2\addons"
+  if (Test-path "$_\steamapps\common\Left 4 Dead 2") {
+    if (Test-Path "$_\steamapps\common\Left 4 Dead 2\left4dead2\addons\$filename") {
+      del "$_\steamapps\common\Left 4 Dead 2\left4dead2\addons\$filename" -Force
+    }
+    copy "$env:USERPROFILE\Desktop\$filename" -dest "$_\steamapps\common\Left 4 Dead 2\left4dead2\addons"
+    del "$env:USERPROFILE\Desktop\$filename"
+    Write-Host "Done."
+  } else {
+    Write-Host "Error."
   }
 }
-
-#   End
-echo "Done!"
 return
