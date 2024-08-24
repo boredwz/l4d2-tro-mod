@@ -21,11 +21,11 @@ $steamLibs = gc "$steamPath\steamapps\libraryfolders.vdf"|?{$_ -match '"path"'}|
 
 #   Download mod.vpk
 iwr -useb "https://gist.githubusercontent.com/boredwz/e7872773f4c44671ca37fad7ca3912b7/raw/Get-GithubLatestRelease.ps1"|iex
-$url = Get-GithubLatestRelease "wvzxn/l4d2-tro-mod"
-$filename = Get-GithubLatestRelease "wvzxn/l4d2-tro-mod" -getname
+$url = Get-GithubLatestRelease "boredwz/l4d2-tro-mod"
+$filename = Get-GithubLatestRelease "boredwz/l4d2-tro-mod" -getname
 $size = [int64]((iwr -Uri $url -Method Head).Headers.'Content-Length') / 1MB
 Write-Host ("Downloading... [~{0:N0}MB]" -f $size)
-Get-GithubLatestRelease "wvzxn/l4d2-tro-mod" -dl -out "$env:USERPROFILE\Desktop"
+Get-GithubLatestRelease "boredwz/l4d2-tro-mod" -dl -out "$env:USERPROFILE\Desktop"
 
 #   Copy mod.vpk
 $steamLibs|%{
