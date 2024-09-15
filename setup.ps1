@@ -1,5 +1,5 @@
 #         Name: L4D2 TRO-MOD setup script
-#       Author: wvzxn // https://github.com/wvzxn/
+#       Author: boredwz // https://github.com/boredwz/
 #  Description: Left 4 Dead 2 sound mod.
 #               The script acts as both installer and updater.
 
